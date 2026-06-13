@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default locale: Spanish (es) — Constitution Article VII -->
+<resources>
+    <string name="record_title">Registrar gasto</string>
+    <string name="record_save">Guardar</string>
+</resources>

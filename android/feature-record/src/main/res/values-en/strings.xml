@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- English (en) override -->
+<resources>
+    <string name="record_title">Record expense</string>
+    <string name="record_save">Save</string>
+</resources>

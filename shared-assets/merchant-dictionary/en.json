@@ -1,0 +1,20 @@
+{
+  "locale": "en",
+  "version": 1,
+  "description": "AI cascade Layer 2 — merchant→category dictionary (data, not a model). Patterns are case-insensitive substring matches against normalized merchant text. English merchant coverage. Stub seed.",
+  "entries": [
+    { "pattern": "starbucks", "categoryId": "food.coffee" },
+    { "pattern": "walmart", "categoryId": "food.groceries" },
+    { "pattern": "costco", "categoryId": "food.groceries" },
+    { "pattern": "whole foods", "categoryId": "food.groceries" },
+    { "pattern": "mcdonald", "categoryId": "food.restaurants" },
+    { "pattern": "uber eats", "categoryId": "food.restaurants" },
+    { "pattern": "uber", "categoryId": "transport.taxi" },
+    { "pattern": "lyft", "categoryId": "transport.taxi" },
+    { "pattern": "shell", "categoryId": "transport.fuel" },
+    { "pattern": "chevron", "categoryId": "transport.fuel" },
+    { "pattern": "netflix", "categoryId": "leisure" },
+    { "pattern": "spotify", "categoryId": "leisure" },
+    { "pattern": "comcast", "categoryId": "utilities.internet" }
+  ]
+}

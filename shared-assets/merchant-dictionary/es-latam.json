@@ -1,0 +1,20 @@
+{
+  "locale": "es-LatAm",
+  "version": 1,
+  "description": "AI cascade Layer 2 — merchant→category dictionary (data, not a model). Patterns are case-insensitive substring matches against normalized merchant text. LatAm/ES focus. Stub seed.",
+  "entries": [
+    { "pattern": "exito", "categoryId": "food.groceries" },
+    { "pattern": "d1", "categoryId": "food.groceries" },
+    { "pattern": "ara", "categoryId": "food.groceries" },
+    { "pattern": "oxxo", "categoryId": "food.groceries" },
+    { "pattern": "juan valdez", "categoryId": "food.coffee" },
+    { "pattern": "tostao", "categoryId": "food.coffee" },
+    { "pattern": "rappi", "categoryId": "food.restaurants" },
+    { "pattern": "uber", "categoryId": "transport.taxi" },
+    { "pattern": "didi", "categoryId": "transport.taxi" },
+    { "pattern": "terpel", "categoryId": "transport.fuel" },
+    { "pattern": "transmilenio", "categoryId": "transport.transit" },
+    { "pattern": "claro", "categoryId": "utilities.internet" },
+    { "pattern": "epm", "categoryId": "utilities.electricity" }
+  ]
+}

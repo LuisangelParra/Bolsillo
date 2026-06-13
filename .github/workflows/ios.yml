@@ -1,0 +1,39 @@
+name: iOS
+
+on:
+  push:
+    paths:
+      - "ios/**"
+      - "shared-assets/**"
+      - ".github/workflows/ios.yml"
+  pull_request:
+    paths:
+      - "ios/**"
+      - "shared-assets/**"
+      - ".github/workflows/ios.yml"
+
+jobs:
+  build-test:
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: ios
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Tuist & SwiftLint
+        run: brew install tuist swiftlint
+
+      - name: SwiftLint
+        run: swiftlint --config .swiftlint.yml
+
+      - name: Generate Xcode project
+        run: tuist generate --no-open
+
+      - name: Build & test
+        run: |
+          xcodebuild test \
+            -workspace Bolsillo.xcworkspace \
+            -scheme Bolsillo \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            CODE_SIGNING_ALLOWED=NO

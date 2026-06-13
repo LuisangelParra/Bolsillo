@@ -1,0 +1,25 @@
+included:
+  - App/Sources
+  - App/Tests
+  - Packages/Bolsillo/Sources
+  - Packages/Bolsillo/Tests
+
+excluded:
+  - Derived
+  - "**/.build"
+
+disabled_rules:
+  - todo            # placeholders intentionally contain TODOs during scaffolding
+
+opt_in_rules:
+  - empty_count
+  - force_unwrapping
+
+line_length:
+  warning: 120
+  error: 160
+
+identifier_name:
+  min_length: 2
+  excluded:
+    - id

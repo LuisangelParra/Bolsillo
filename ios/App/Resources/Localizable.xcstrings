@@ -1,0 +1,40 @@
+{
+  "sourceLanguage" : "es",
+  "strings" : {
+    "record.save" : {
+      "comment" : "Save button on the record-expense screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
+          }
+        }
+      }
+    },
+    "record.title" : {
+      "comment" : "Title of the record-expense screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record expense"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrar gasto"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
