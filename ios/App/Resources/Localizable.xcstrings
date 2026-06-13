@@ -3,6 +3,7 @@
   "strings" : {
     "record.save" : {
       "comment" : "Save button on the record-expense screen",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -20,6 +21,7 @@
     },
     "record.title" : {
       "comment" : "Title of the record-expense screen",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -10,9 +10,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Placeholder repository (in-memory) until Room/SQLCipher persistence is implemented.
- * Demonstrates the soft-delete contract: [softDelete] sets deletedAt; nothing is ever
- * physically removed (Constitution Article III).
+ * Legacy placeholder kept only so the InMemory test still exercises the
+ * soft-delete contract. The production binding in [com.bolsillo.data.di.DataModule]
+ * is [RoomTransactionRepository] — never this class.
+ *
+ * Soft delete (Article III): nothing is ever physically removed.
  */
 @Singleton
 class InMemoryTransactionRepository
@@ -42,6 +44,39 @@ class InMemoryTransactionRepository
             state.update { byId ->
                 val existing = byId[id] ?: return@update byId
                 byId + (id to existing.copy(deletedAt = null))
+            }
+        }
+
+        override suspend fun lastUsed(): Transaction? =
+            state.value.values.filter { !it.isDeleted }.maxByOrNull { it.createdAt }
+
+        override suspend fun upsertTransfer(
+            legSource: Transaction,
+            legDest: Transaction,
+        ) {
+            state.update { it + (legSource.id to legSource) + (legDest.id to legDest) }
+        }
+
+        override suspend fun softDeleteGroup(
+            transferGroupId: String,
+            deletedAt: Long,
+        ) {
+            state.update { byId ->
+                byId.mapValues { (_, t) ->
+                    if (t.transferGroupId == transferGroupId) {
+                        t.copy(deletedAt = deletedAt, updatedAt = deletedAt)
+                    } else {
+                        t
+                    }
+                }
+            }
+        }
+
+        override suspend fun restoreGroup(transferGroupId: String) {
+            state.update { byId ->
+                byId.mapValues { (_, t) ->
+                    if (t.transferGroupId == transferGroupId) t.copy(deletedAt = null) else t
+                }
             }
         }
     }

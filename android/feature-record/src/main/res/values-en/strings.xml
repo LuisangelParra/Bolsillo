@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- English (en) override -->
+<!-- GENERATED from shared-assets/i18n/en.json. Do not edit.
+     Regenerate via `./gradlew :feature-record:generateI18nStrings`. -->
 <resources>
+    <string name="app_name">Bolsillo</string>
     <string name="record_title">Record expense</string>
+    <string name="record_amount_placeholder">0</string>
     <string name="record_save">Save</string>
+    <string name="record_category">Category</string>
+    <string name="record_account">Account</string>
+    <string name="record_amount">Amount</string>
+    <string name="record_expense">Expense</string>
+    <string name="record_income">Income</string>
+    <string name="record_transfer">Transfer</string>
+    <string name="record_transfer_source">From</string>
+    <string name="record_transfer_destination">To</string>
+    <string name="record_transfer_sameAccountError">Source and destination must be different</string>
+    <string name="record_undo">Undo</string>
+    <string name="record_edit">Edit</string>
+    <string name="record_delete">Delete</string>
+    <string name="record_restore">Restore</string>
+    <string name="record_saved_toast">Saved</string>
+    <string name="record_deleted_toast">Moved to trash</string>
+    <string name="record_toConfirm">To confirm</string>
+    <string name="record_ai_waiting">AI suggestion</string>
+    <string name="record_ai_toConfirm">To confirm</string>
+    <string name="record_ai_confident">AI</string>
+    <string name="record_keypad_hint">Category &amp; account ready — type the amount and save</string>
+    <string name="record_mode_keypad">Keypad</string>
+    <string name="record_mode_text">Text</string>
+    <string name="record_mode_receipt">Receipt</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="category_food">Food</string>
+    <string name="category_food_groceries">Groceries</string>
+    <string name="category_food_restaurants">Restaurants</string>
+    <string name="category_food_coffee">Coffee</string>
+    <string name="category_transport">Transport</string>
+    <string name="category_transport_fuel">Fuel</string>
+    <string name="category_transport_taxi">Taxi</string>
+    <string name="category_transport_transit">Public transit</string>
+    <string name="category_housing">Housing</string>
+    <string name="category_housing_rent">Rent</string>
+    <string name="category_utilities">Utilities</string>
+    <string name="category_utilities_electricity">Electricity</string>
+    <string name="category_utilities_internet">Internet</string>
+    <string name="category_health">Health</string>
+    <string name="category_leisure">Leisure</string>
+    <string name="category_education">Education</string>
+    <string name="category_shopping">Shopping</string>
+    <string name="category_income">Income</string>
+    <string name="category_transfer">Transfer</string>
+    <string name="category_other">Other</string>
+    <string name="account_default_cash">Cash</string>
 </resources>

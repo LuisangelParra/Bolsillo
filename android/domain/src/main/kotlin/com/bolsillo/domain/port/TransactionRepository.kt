@@ -4,11 +4,11 @@ import com.bolsillo.domain.model.Transaction
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Domain port for transactions. Implemented in the data layer; the domain depends
- * only on this interface (Constitution Article VIII).
+ * Domain port for transactions. Implemented in the data layer; the domain
+ * depends only on this interface (Article VIII).
  *
- * Note: there is intentionally NO hard-delete method. Removal is [softDelete] only
- * (Constitution Article III — no hard deletes).
+ * Removal is [softDelete] only (Article III — no hard deletes). Multi-row
+ * methods (transfer pair) MUST be atomic — all-or-nothing.
  */
 interface TransactionRepository {
     fun observeAll(): Flow<List<Transaction>>
@@ -25,4 +25,22 @@ interface TransactionRepository {
 
     /** Restore a soft-deleted transaction from trash. */
     suspend fun restore(id: String)
+
+    /** Most recent non-deleted transaction; used by last-used fallback. */
+    suspend fun lastUsed(): Transaction?
+
+    /** Atomic pair write: both legs persisted in one DB transaction. */
+    suspend fun upsertTransfer(
+        legSource: Transaction,
+        legDest: Transaction,
+    )
+
+    /** Soft-delete every leg sharing the given transferGroupId. */
+    suspend fun softDeleteGroup(
+        transferGroupId: String,
+        deletedAt: Long,
+    )
+
+    /** Restore every leg sharing the given transferGroupId. */
+    suspend fun restoreGroup(transferGroupId: String)
 }

@@ -48,6 +48,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":core"))
     implementation(project(":data"))
+    implementation(project(":designsystem"))
     implementation(project(":feature-record"))
 
     implementation(libs.androidx.core.ktx)
