@@ -124,9 +124,17 @@ if [[ ! -f "$IMPL_PLAN" ]]; then
     exit 1
 fi
 
-# Check for tasks.md if required
-if $REQUIRE_TASKS && [[ ! -f "$TASKS" ]]; then
-    echo "ERROR: tasks.md not found in $FEATURE_DIR" >&2
+# Discover task files: this project may use a single tasks.md OR per-platform
+# task files (tasks-android.md, tasks-ios.md). Treat any of them as satisfying
+# the tasks prerequisite.
+PLATFORM_TASKS=()
+while IFS= read -r _tf; do
+    [[ -n "$_tf" ]] && PLATFORM_TASKS+=("$_tf")
+done < <(ls "$FEATURE_DIR"/tasks-*.md 2>/dev/null)
+
+# Check for tasks if required (single or per-platform)
+if $REQUIRE_TASKS && [[ ! -f "$TASKS" ]] && [[ ${#PLATFORM_TASKS[@]} -eq 0 ]]; then
+    echo "ERROR: no task list found in $FEATURE_DIR (looked for tasks.md and tasks-*.md)" >&2
     echo "Run /speckit-tasks first to create the task list." >&2
     exit 1
 fi
@@ -145,9 +153,12 @@ fi
 
 [[ -f "$QUICKSTART" ]] && docs+=("quickstart.md")
 
-# Include tasks.md if requested and it exists
-if $INCLUDE_TASKS && [[ -f "$TASKS" ]]; then
-    docs+=("tasks.md")
+# Include tasks if requested: single tasks.md and/or per-platform tasks-*.md
+if $INCLUDE_TASKS; then
+    [[ -f "$TASKS" ]] && docs+=("tasks.md")
+    for _tf in "${PLATFORM_TASKS[@]}"; do
+        docs+=("$(basename "$_tf")")
+    done
 fi
 
 # Output results
@@ -184,6 +195,11 @@ else
     check_file "$QUICKSTART" "quickstart.md"
     
     if $INCLUDE_TASKS; then
-        check_file "$TASKS" "tasks.md"
+        if [[ -f "$TASKS" ]] || [[ ${#PLATFORM_TASKS[@]} -eq 0 ]]; then
+            check_file "$TASKS" "tasks.md"
+        fi
+        for _tf in "${PLATFORM_TASKS[@]}"; do
+            check_file "$_tf" "$(basename "$_tf")"
+        done
     fi
 fi
