@@ -1,30 +1,30 @@
 {
   "version": 1,
-  "description": "Default category tree. Display names are NOT stored here — every node carries an i18nKey resolved per locale (see ../i18n). Icons/colors are platform-neutral hints.",
+  "description": "Default category tree. Display names are NOT stored here — every node carries an i18nKey resolved per locale (see ../i18n). `colorToken` references a category id in ../design/tokens.json (`category`), the single source for icon foreground + container fill across both platforms; the `color` field is a legacy platform-neutral hint and is superseded by `colorToken` (design tokens win).",
   "categories": [
-    { "id": "food", "parentId": null, "i18nKey": "category.food", "icon": "fork.knife", "color": "#E8743B" },
-    { "id": "food.groceries", "parentId": "food", "i18nKey": "category.food.groceries", "icon": "cart", "color": "#E8743B" },
-    { "id": "food.restaurants", "parentId": "food", "i18nKey": "category.food.restaurants", "icon": "takeoutbag.and.cup.and.straw", "color": "#E8743B" },
-    { "id": "food.coffee", "parentId": "food", "i18nKey": "category.food.coffee", "icon": "cup.and.saucer", "color": "#E8743B" },
+    { "id": "food", "parentId": null, "i18nKey": "category.food", "icon": "fork.knife", "color": "#E8743B", "colorToken": "restaurantes" },
+    { "id": "food.groceries", "parentId": "food", "i18nKey": "category.food.groceries", "icon": "cart", "color": "#E8743B", "colorToken": "mercado" },
+    { "id": "food.restaurants", "parentId": "food", "i18nKey": "category.food.restaurants", "icon": "takeoutbag.and.cup.and.straw", "color": "#E8743B", "colorToken": "restaurantes" },
+    { "id": "food.coffee", "parentId": "food", "i18nKey": "category.food.coffee", "icon": "cup.and.saucer", "color": "#E8743B", "colorToken": "cafe" },
 
-    { "id": "transport", "parentId": null, "i18nKey": "category.transport", "icon": "car", "color": "#1F9D8C" },
-    { "id": "transport.fuel", "parentId": "transport", "i18nKey": "category.transport.fuel", "icon": "fuelpump", "color": "#1F9D8C" },
-    { "id": "transport.taxi", "parentId": "transport", "i18nKey": "category.transport.taxi", "icon": "car.side", "color": "#1F9D8C" },
-    { "id": "transport.transit", "parentId": "transport", "i18nKey": "category.transport.transit", "icon": "bus", "color": "#1F9D8C" },
+    { "id": "transport", "parentId": null, "i18nKey": "category.transport", "icon": "car", "color": "#1F9D8C", "colorToken": "transporte" },
+    { "id": "transport.fuel", "parentId": "transport", "i18nKey": "category.transport.fuel", "icon": "fuelpump", "color": "#1F9D8C", "colorToken": "transporte" },
+    { "id": "transport.taxi", "parentId": "transport", "i18nKey": "category.transport.taxi", "icon": "car.side", "color": "#1F9D8C", "colorToken": "transporte" },
+    { "id": "transport.transit", "parentId": "transport", "i18nKey": "category.transport.transit", "icon": "bus", "color": "#1F9D8C", "colorToken": "transporte" },
 
-    { "id": "housing", "parentId": null, "i18nKey": "category.housing", "icon": "house", "color": "#3B7DE8" },
-    { "id": "housing.rent", "parentId": "housing", "i18nKey": "category.housing.rent", "icon": "key", "color": "#3B7DE8" },
+    { "id": "housing", "parentId": null, "i18nKey": "category.housing", "icon": "house", "color": "#3B7DE8", "colorToken": "vivienda" },
+    { "id": "housing.rent", "parentId": "housing", "i18nKey": "category.housing.rent", "icon": "key", "color": "#3B7DE8", "colorToken": "vivienda" },
 
-    { "id": "utilities", "parentId": null, "i18nKey": "category.utilities", "icon": "bolt", "color": "#8E6FE8" },
-    { "id": "utilities.electricity", "parentId": "utilities", "i18nKey": "category.utilities.electricity", "icon": "bolt.fill", "color": "#8E6FE8" },
-    { "id": "utilities.internet", "parentId": "utilities", "i18nKey": "category.utilities.internet", "icon": "wifi", "color": "#8E6FE8" },
+    { "id": "utilities", "parentId": null, "i18nKey": "category.utilities", "icon": "bolt", "color": "#8E6FE8", "colorToken": "servicios" },
+    { "id": "utilities.electricity", "parentId": "utilities", "i18nKey": "category.utilities.electricity", "icon": "bolt.fill", "color": "#8E6FE8", "colorToken": "servicios" },
+    { "id": "utilities.internet", "parentId": "utilities", "i18nKey": "category.utilities.internet", "icon": "wifi", "color": "#8E6FE8", "colorToken": "servicios" },
 
-    { "id": "health", "parentId": null, "i18nKey": "category.health", "icon": "cross.case", "color": "#E83B7D" },
-    { "id": "leisure", "parentId": null, "i18nKey": "category.leisure", "icon": "gamecontroller", "color": "#E8C13B" },
-    { "id": "education", "parentId": null, "i18nKey": "category.education", "icon": "book", "color": "#3BC1E8" },
-    { "id": "shopping", "parentId": null, "i18nKey": "category.shopping", "icon": "bag", "color": "#9D1F8C" },
-    { "id": "income", "parentId": null, "i18nKey": "category.income", "icon": "arrow.down.circle", "color": "#2EAD4B" },
-    { "id": "transfer", "parentId": null, "i18nKey": "category.transfer", "icon": "arrow.left.arrow.right", "color": "#7A7A7A" },
-    { "id": "other", "parentId": null, "i18nKey": "category.other", "icon": "ellipsis.circle", "color": "#7A7A7A" }
+    { "id": "health", "parentId": null, "i18nKey": "category.health", "icon": "cross.case", "color": "#E83B7D", "colorToken": "salud" },
+    { "id": "leisure", "parentId": null, "i18nKey": "category.leisure", "icon": "gamecontroller", "color": "#E8C13B", "colorToken": "ocio" },
+    { "id": "education", "parentId": null, "i18nKey": "category.education", "icon": "book", "color": "#3BC1E8", "colorToken": "educacion" },
+    { "id": "shopping", "parentId": null, "i18nKey": "category.shopping", "icon": "bag", "color": "#9D1F8C", "colorToken": "ropa" },
+    { "id": "income", "parentId": null, "i18nKey": "category.income", "icon": "arrow.down.circle", "color": "#2EAD4B", "colorToken": "ingreso" },
+    { "id": "transfer", "parentId": null, "i18nKey": "category.transfer", "icon": "arrow.left.arrow.right", "color": "#7A7A7A", "colorToken": "otros" },
+    { "id": "other", "parentId": null, "i18nKey": "category.other", "icon": "ellipsis.circle", "color": "#7A7A7A", "colorToken": "otros" }
   ]
 }

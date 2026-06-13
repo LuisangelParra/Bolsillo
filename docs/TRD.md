@@ -23,6 +23,7 @@ This document translates the PRD into implementable technical requirements for t
 4. **AI is a replaceable service:** accessed behind an interface; the model can change without touching the domain.
 5. **Financial integrity first:** exact arithmetic, transactional operations, no data loss.
 6. **Privacy by design:** on-device inference and learning; minimal, anonymous, opt-in telemetry.
+7. **Shared design system, native UI:** both apps map the same design tokens (`shared-assets/design/tokens.json`) into native theme resources and replicate the canonical design (`docs/design/`); no literal colors/sizes in UI code. Visual divergence is a shared-design-system defect, fixed there first, then in both apps.
 
 ---
 

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes toastUp{from{opacity:0;transform:translate(-50%,140%)}to{opacity:1;transform:translate(-50%,0)}}
+  @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+  .scrl::-webkit-scrollbar{display:none}
+  .scrl{scrollbar-width:none;-ms-overflow-style:none;}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#E9E8ED;display:flex;align-items:center;justify-content:center;padding:30px;font-family:'Plus Jakarta Sans',sans-serif;">
+<div style="position:relative;width:402px;height:872px;background:#F4F3F6;border-radius:46px;overflow:hidden;box-shadow:0 40px 90px rgba(35,22,70,.24), 0 0 0 1px rgba(0,0,0,.03);">
+
+  <!-- STATUS BAR -->
+  <div style="position:absolute;top:0;left:0;right:0;height:54px;z-index:55;display:flex;align-items:center;justify-content:space-between;padding:17px 32px 0;pointer-events:none;color:{{ sbColor }};">
+    <span style="font-size:16px;font-weight:700;letter-spacing:.2px;">9:41</span>
+    {{ sbIcons }}
+  </div>
+
+  <!-- ===================== HOME ===================== -->
+  <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+  <div class="scrl" style="position:absolute;inset:0;overflow-y:auto;padding-bottom:120px;">
+    <!-- hero -->
+    <div style="position:relative;padding:66px 22px 26px;background:linear-gradient(162deg,#A98CF5 0%,#8862EE 48%,#6E45DF 100%);border-radius:0 0 30px 30px;overflow:hidden;">
+      <div style="position:absolute;top:-40px;right:-30px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);"></div>
+      <div style="position:relative;display:flex;align-items:center;justify-content:space-between;">
+        <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#FFD9A8,#F2A65A);display:flex;align-items:center;justify-content:center;font-weight:800;color:#7a4a14;font-size:15px;box-shadow:0 0 0 3px rgba(255,255,255,.35);">AR</div>
+        <button onClick="{{ noop }}" style="display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.18);border:none;border-radius:30px;padding:9px 15px;color:#fff;font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;">Noviembre 2025 {{ icChevWhite }}</button>
+        <button onClick="{{ noop }}" style="position:relative;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;">{{ icBell }}<span style="position:absolute;top:11px;right:12px;width:8px;height:8px;border-radius:50%;background:#FF5470;border:2px solid #8862EE;"></span></button>
+      </div>
+      <div style="position:relative;text-align:center;margin-top:24px;">
+        <div style="color:rgba(255,255,255,.82);font-size:14.5px;font-weight:500;">Saldo total</div>
+        <div style="color:#fff;font-size:46px;font-weight:800;letter-spacing:-1px;margin-top:4px;font-variant-numeric:tabular-nums;">{{ balanceStr }}</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(255,255,255,.16);padding:6px 13px;border-radius:30px;color:#fff;font-size:13px;font-weight:600;">+$120.400 que la semana pasada</div>
+      </div>
+    </div>
+
+    <!-- tu dinero -->
+    <div style="padding:20px 18px 0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:17px;font-weight:700;color:#16161C;">Tu dinero {{ icInfo }}</div>
+        <button onClick="{{ noop }}" style="display:flex;align-items:center;gap:3px;background:#fff;border:none;border-radius:30px;padding:7px 12px;font-family:inherit;font-size:13px;font-weight:600;color:#5b5b66;cursor:pointer;box-shadow:0 3px 10px rgba(28,20,60,.05);">Detalles {{ icChevR }}</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:#fff;border-radius:20px;padding:16px;box-shadow:0 6px 18px rgba(28,20,60,.05);">
+          <div style="width:38px;height:38px;border-radius:12px;background:#DCF5E9;display:flex;align-items:center;justify-content:center;margin-bottom:14px;">{{ icIncome }}</div>
+          <div style="font-size:13px;color:#8E8E98;font-weight:500;">Ingresos</div>
+          <div style="font-size:21px;font-weight:800;color:#16161C;margin-top:2px;font-variant-numeric:tabular-nums;">$3.200.000</div>
+        </div>
+        <div style="background:#fff;border-radius:20px;padding:16px;box-shadow:0 6px 18px rgba(28,20,60,.05);">
+          <div style="width:38px;height:38px;border-radius:12px;background:#FDE6EC;display:flex;align-items:center;justify-content:center;margin-bottom:14px;">{{ icExpense }}</div>
+          <div style="font-size:13px;color:#8E8E98;font-weight:500;">Gastos</div>
+          <div style="font-size:21px;font-weight:800;color:#16161C;margin-top:2px;font-variant-numeric:tabular-nums;">$1.845.780</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- insight pill -->
+    <div style="padding:14px 18px 0;">
+      <button onClick="{{ noop }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:#16161B;border:none;border-radius:18px;padding:15px 18px;cursor:pointer;font-family:inherit;">
+        <span style="display:flex;align-items:center;gap:11px;color:#fff;font-size:14.5px;font-weight:600;"><span style="width:30px;height:30px;border-radius:9px;background:rgba(124,92,240,.25);display:flex;align-items:center;justify-content:center;">{{ icSpark }}</span>Tu resumen semanal está listo</span>
+        <span style="display:flex;align-items:center;gap:3px;color:#B79CFF;font-size:13.5px;font-weight:700;">Ver Pro {{ icChevRv }}</span>
+      </button>
+    </div>
+
+    <!-- transactions -->
+    <div style="padding:22px 18px 0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <div style="font-size:17px;font-weight:700;color:#16161C;">Movimientos</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button onClick="{{ noop }}" style="width:34px;height:34px;border-radius:11px;background:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(28,20,60,.05);">{{ icSearch }}</button>
+          <button onClick="{{ go }}" style="display:flex;align-items:center;gap:5px;background:#EDE7FE;border:none;border-radius:30px;padding:8px 13px;font-family:inherit;font-size:12.5px;font-weight:700;color:#7C5CF0;cursor:pointer;">Del periodo {{ icChevSm }}</button>
+        </div>
+      </div>
+      <sc-for list="{{ feed }}" as="item" hint-placeholder-count="5">
+        <sc-if value="{{ item.isDay }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 2px 9px;">
+            <span style="font-size:13px;color:#9A9AA4;font-weight:600;text-transform:capitalize;">{{ item.day }}</span>
+            <span style="font-size:12.5px;color:#9A9AA4;font-weight:500;">Total <b style="color:#56565f;font-weight:700;">{{ item.totalStr }}</b></span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ item.isTx }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ item.onPress }}" style="width:100%;display:flex;align-items:center;gap:13px;background:#fff;border:none;border-radius:18px;padding:13px 14px;margin-bottom:9px;cursor:pointer;font-family:inherit;text-align:left;box-shadow:0 4px 14px rgba(28,20,60,.04);">
+            <span style="flex:none;width:44px;height:44px;border-radius:13px;background:{{ item.bg }};display:flex;align-items:center;justify-content:center;">{{ item.iconEl }}</span>
+            <span style="flex:1;min-width:0;">
+              <span style="display:flex;align-items:center;gap:7px;">
+                <b style="font-size:15.5px;font-weight:700;color:#16161C;">{{ item.title }}</b>
+                <sc-if value="{{ item.confirm }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;font-weight:700;color:#E0852B;background:#FBEFD6;padding:2px 8px;border-radius:20px;">Por confirmar</span></sc-if>
+              </span>
+              <span style="display:flex;align-items:center;gap:6px;margin-top:3px;color:#9A9AA4;font-size:12.5px;font-weight:500;">{{ item.subEl }}{{ item.merchant }}</span>
+            </span>
+            <span style="flex:none;text-align:right;">
+              <b style="display:block;font-size:15.5px;font-weight:800;color:{{ item.amtColor }};font-variant-numeric:tabular-nums;">{{ item.amountStr }}</b>
+              <span style="font-size:12px;color:#B0B0B8;font-weight:500;">{{ item.accName }}</span>
+            </span>
+          </button>
+        </sc-if>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== REPORT ===================== -->
+  <sc-if value="{{ showReport }}" hint-placeholder-val="{{ false }}">
+  <div class="scrl" style="position:absolute;inset:0;overflow-y:auto;padding:62px 18px 120px;background:#F4F3F6;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="display:flex;align-items:center;gap:12px;"><button onClick="{{ goHome }}" style="width:40px;height:40px;border-radius:13px;background:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(28,20,60,.05);">{{ icBack }}</button><span style="font-size:21px;font-weight:800;color:#16161C;">Reporte</span></div>
+      <button onClick="{{ noop }}" style="display:flex;align-items:center;gap:6px;background:#fff;border:none;border-radius:30px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:600;color:#5b5b66;cursor:pointer;box-shadow:0 3px 10px rgba(28,20,60,.05);">Nov 2025 {{ icChevSm }}</button>
+    </div>
+    <div style="display:flex;background:#E7E6EC;border-radius:16px;padding:4px;margin-bottom:24px;">
+      <div style="flex:1;text-align:center;padding:10px;border-radius:13px;background:#fff;font-size:14.5px;font-weight:700;color:#16161C;box-shadow:0 2px 6px rgba(28,20,60,.06);">Gastos</div>
+      <div style="flex:1;text-align:center;padding:10px;font-size:14.5px;font-weight:600;color:#9A9AA4;">Ingresos</div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <span style="font-size:16px;font-weight:700;color:#16161C;">Reporte de gastos</span>
+      <div style="display:flex;background:#E7E6EC;border-radius:30px;padding:4px;gap:2px;">
+        <span style="width:34px;height:30px;border-radius:30px;display:flex;align-items:center;justify-content:center;">{{ icBars }}</span>
+        <span style="width:34px;height:30px;border-radius:30px;background:#7C5CF0;display:flex;align-items:center;justify-content:center;">{{ icPieW }}</span>
+      </div>
+    </div>
+    <!-- donut -->
+    <div style="display:flex;justify-content:center;padding:18px 0 6px;">
+      <div style="position:relative;width:232px;height:232px;border-radius:50%;background:conic-gradient(#7C5CF0 0 31%, #3B82F6 31% 57%, #16B364 57% 81%, #F2843B 81% 96%, #E7E6EC 96% 100%);">
+        <div style="position:absolute;inset:34px;border-radius:50%;background:#F4F3F6;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <span style="font-size:13px;color:#9A9AA4;font-weight:600;">Gastos totales</span>
+          <span style="font-size:26px;font-weight:800;color:#16161C;font-variant-numeric:tabular-nums;">$1.845.780</span>
+        </div>
+        <div style="position:absolute;top:30px;right:-6px;background:#16161B;color:#fff;font-size:12px;font-weight:700;padding:4px 9px;border-radius:20px;">31%</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:18px 4px 12px;">
+      <span style="font-size:14px;color:#8E8E98;font-weight:600;">Todos los gastos</span>
+      <span style="font-size:13px;color:#8E8E98;font-weight:500;">Total <b style="color:#16161C;font-weight:800;">$1.845.780</b></span>
+    </div>
+    <sc-for list="{{ breakdown }}" as="b" hint-placeholder-count="4">
+      <div style="background:#fff;border-radius:20px;padding:15px;margin-bottom:11px;box-shadow:0 5px 16px rgba(28,20,60,.04);">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="flex:none;width:42px;height:42px;border-radius:13px;background:{{ b.bg }};display:flex;align-items:center;justify-content:center;">{{ b.iconEl }}</span>
+          <span style="flex:1;">
+            <span style="display:flex;align-items:center;justify-content:space-between;"><b style="font-size:15px;font-weight:700;color:#16161C;">{{ b.name }}</b><b style="font-size:15px;font-weight:800;color:#16161C;font-variant-numeric:tabular-nums;">{{ b.amountStr }}</b></span>
+            <span style="display:flex;align-items:center;justify-content:space-between;margin-top:2px;"><span style="font-size:12.5px;color:#9A9AA4;font-weight:500;">{{ b.pct }} del total</span><span style="display:flex;align-items:center;gap:5px;"><span style="font-size:11px;font-weight:700;color:{{ b.deltaColor }};background:{{ b.deltaBg }};padding:2px 7px;border-radius:20px;">{{ b.delta }}</span><span style="font-size:11.5px;color:#B0B0B8;">vs mes ant.</span></span></span>
+          </span>
+        </div>
+        <div style="height:7px;border-radius:10px;background:#F0EFF4;margin-top:13px;overflow:hidden;"><div style="height:100%;border-radius:10px;width:{{ b.barW }};background:{{ b.fg }};"></div></div>
+      </div>
+    </sc-for>
+  </div>
+  </sc-if>
+
+  <!-- ===================== PLAN ===================== -->
+  <sc-if value="{{ showPlan }}" hint-placeholder-val="{{ false }}">
+  <div class="scrl" style="position:absolute;inset:0;overflow-y:auto;padding:62px 18px 120px;background:#F4F3F6;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+      <div style="display:flex;align-items:center;gap:12px;"><button onClick="{{ goHome }}" style="width:40px;height:40px;border-radius:13px;background:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(28,20,60,.05);">{{ icBack }}</button><span style="font-size:21px;font-weight:800;color:#16161C;">Mi plan</span></div>
+      <div style="display:flex;gap:9px;"><button onClick="{{ openSheet }}" style="width:42px;height:42px;border-radius:50%;background:#16161B;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;">{{ icPlusW }}</button><button onClick="{{ noop }}" style="width:42px;height:42px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(28,20,60,.05);">{{ icShare }}</button></div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;"><span style="font-size:17px;font-weight:700;color:#16161C;">Metas</span><span style="font-size:13.5px;font-weight:700;color:#7C5CF0;">Ver todas</span></div>
+    <!-- goal card -->
+    <div style="background:#fff;border-radius:22px;padding:18px;box-shadow:0 8px 22px rgba(28,20,60,.06);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <span style="width:44px;height:44px;border-radius:14px;background:#FBEFD6;display:flex;align-items:center;justify-content:center;">{{ icTarget }}</span>
+        <span style="flex:1;"><b style="display:block;font-size:16px;font-weight:700;color:#16161C;">Casa en la playa</b><span style="font-size:12.5px;color:#9A9AA4;font-weight:500;">Ver detalle</span></span>
+        <span>{{ icDots }}</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;"><b style="font-size:27px;font-weight:800;color:#16161C;font-variant-numeric:tabular-nums;">$8.750.000</b><span style="font-size:13.5px;color:#9A9AA4;font-weight:500;">de $17.500.000</span></div>
+      <div style="position:relative;height:11px;border-radius:10px;background:#F0EFF4;margin:14px 0 9px;overflow:hidden;"><div style="position:absolute;inset:0 50% 0 0;border-radius:10px;background:#F2843B;"></div><div style="position:absolute;top:0;bottom:0;left:50%;right:0;background:repeating-linear-gradient(45deg,#FAD6B8,#FAD6B8 5px,#F4E7DA 5px,#F4E7DA 10px);"></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12.5px;color:#9A9AA4;font-weight:500;">Tu progreso</span><span style="font-size:12.5px;color:#16161C;font-weight:700;">Faltan $8.750.000</span></div>
+      <div style="display:flex;align-items:center;gap:9px;margin-top:14px;background:#F2843B;border-radius:14px;padding:12px 14px;"><span style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;">{{ icInfoW }}</span><span style="color:#fff;font-size:12.5px;font-weight:600;">Vas 30% atrasado para esta fecha.</span></div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:24px 0 13px;"><span style="font-size:17px;font-weight:700;color:#16161C;">Presupuestos</span><span style="font-size:13.5px;font-weight:700;color:#7C5CF0;">Ver todos</span></div>
+    <sc-for list="{{ budgets }}" as="b" hint-placeholder-count="4">
+      <div style="display:flex;align-items:center;gap:13px;background:#fff;border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:0 5px 16px rgba(28,20,60,.04);">
+        <span style="flex:none;width:44px;height:44px;border-radius:13px;background:{{ b.bg }};display:flex;align-items:center;justify-content:center;">{{ b.iconEl }}</span>
+        <span style="flex:1;"><b style="display:block;font-size:15px;font-weight:700;color:#16161C;">{{ b.name }}</b><span style="font-size:12.5px;color:#9A9AA4;font-weight:500;">{{ b.spentStr }} <span style="color:#B7B7BF;">de {{ b.capStr }}</span></span></span>
+        <span style="position:relative;width:46px;height:46px;border-radius:50%;background:{{ b.ring }};display:flex;align-items:center;justify-content:center;"><span style="position:absolute;inset:5px;border-radius:50%;background:#fff;"></span><b style="position:relative;font-size:12px;font-weight:800;color:{{ b.ringColor }};">{{ b.pct }}</b></span>
+      </div>
+    </sc-for>
+  </div>
+  </sc-if>
+
+  <!-- ===================== SETTINGS ===================== -->
+  <sc-if value="{{ showSettings }}" hint-placeholder-val="{{ false }}">
+  <div class="scrl" style="position:absolute;inset:0;overflow-y:auto;padding:62px 18px 120px;background:#F4F3F6;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;"><button onClick="{{ goHome }}" style="width:40px;height:40px;border-radius:13px;background:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(28,20,60,.05);">{{ icBack }}</button><span style="font-size:21px;font-weight:800;color:#16161C;">Ajustes</span></div>
+    <div style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:20px;padding:16px;margin-bottom:18px;box-shadow:0 6px 18px rgba(28,20,60,.05);">
+      <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#FFD9A8,#F2A65A);display:flex;align-items:center;justify-content:center;font-weight:800;color:#7a4a14;font-size:17px;">AR</div>
+      <div style="flex:1;"><b style="display:block;font-size:16px;font-weight:700;color:#16161C;">Andrés Ramírez</b><span style="font-size:12.5px;color:#16B364;font-weight:600;">● Sin conexión · datos en este equipo</span></div>
+      {{ icLock }}
+    </div>
+    <sc-for list="{{ settingGroups }}" as="g" hint-placeholder-count="3">
+      <div style="font-size:12.5px;font-weight:700;color:#9A9AA4;text-transform:uppercase;letter-spacing:.5px;margin:18px 4px 9px;">{{ g.title }}</div>
+      <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 5px 16px rgba(28,20,60,.04);">
+        <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:13px;padding:14px 15px;border-bottom:1px solid #F2F1F5;">
+            <span style="width:36px;height:36px;border-radius:11px;background:{{ r.bg }};display:flex;align-items:center;justify-content:center;">{{ r.iconEl }}</span>
+            <span style="flex:1;font-size:14.5px;font-weight:600;color:#16161C;">{{ r.label }}</span>
+            <span style="font-size:13px;color:#9A9AA4;font-weight:600;">{{ r.value }}</span>
+            {{ icChevR }}
+          </div>
+        </sc-for>
+      </div>
+    </sc-for>
+    <div style="text-align:center;color:#B0B0B8;font-size:12px;font-weight:500;margin-top:24px;">Bolsillo · v1.0 · Hecho para llevar tu bolsillo</div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== BOTTOM NAV ===================== -->
+  <div style="position:absolute;left:0;right:0;bottom:0;height:96px;z-index:45;background:linear-gradient(to top,#FFFFFF 62%,rgba(255,255,255,0));pointer-events:none;"></div>
+  <div style="position:absolute;left:14px;right:14px;bottom:20px;z-index:46;height:64px;background:#fff;border-radius:26px;box-shadow:0 10px 30px rgba(28,20,60,.10);display:flex;align-items:center;padding:0 6px;">
+    <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+      <button onClick="{{ n.onPress }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;font-family:inherit;padding:8px 0;">
+        {{ n.iconEl }}
+        <span style="font-size:11px;font-weight:{{ n.weight }};color:{{ n.color }};">{{ n.label }}</span>
+      </button>
+      <sc-if value="{{ n.gap }}" hint-placeholder-val="{{ false }}"><span style="width:58px;flex:none;"></span></sc-if>
+    </sc-for>
+  </div>
+  <!-- FAB -->
+  <button onClick="{{ openSheet }}" style="position:absolute;left:50%;transform:translateX(-50%);bottom:54px;z-index:48;width:62px;height:62px;border-radius:50%;background:linear-gradient(150deg,#9B7BF5,#7C5CF0);border:4px solid #F4F3F6;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 26px rgba(124,92,240,.5);">{{ icPlusBig }}</button>
+
+  <!-- ===================== RECORD SHEET ===================== -->
+  <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:60;background:rgba(20,14,40,.42);animation:fade .2s ease;"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;z-index:61;height:786px;background:#F4F3F6;border-radius:30px 30px 0 0;animation:sheetUp .32s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;">
+    <div style="display:flex;justify-content:center;padding-top:11px;"><span style="width:42px;height:5px;border-radius:10px;background:#D6D5DC;"></span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 20px 4px;">
+      <span style="font-size:18px;font-weight:800;color:#16161C;">Nuevo movimiento</span>
+      <button onClick="{{ closeSheet }}" style="width:36px;height:36px;border-radius:50%;background:#E7E6EC;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;">{{ icX }}</button>
+    </div>
+    <!-- type toggle -->
+    <div style="display:flex;background:#E7E6EC;border-radius:16px;padding:4px;margin:8px 20px 0;">
+      <sc-for list="{{ typeTabs }}" as="t" hint-placeholder-count="3">
+        <button onClick="{{ t.onPress }}" style="flex:1;padding:10px 0;border:none;border-radius:13px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;background:{{ t.bg }};color:{{ t.color }};box-shadow:{{ t.shadow }};">{{ t.label }}</button>
+      </sc-for>
+    </div>
+    <!-- amount -->
+    <div style="text-align:center;padding:22px 0 6px;">
+      <div style="display:inline-flex;align-items:flex-start;justify-content:center;gap:3px;color:{{ amtColor }};">
+        <span style="font-size:26px;font-weight:700;margin-top:9px;">$</span>
+        <span style="font-size:52px;font-weight:800;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;">{{ dispAmountStr }}</span>
+        <span style="width:3px;height:46px;background:{{ caretColor }};margin-top:8px;border-radius:2px;animation:blink 1.1s steps(1) infinite;"></span>
+      </div>
+      <div style="font-size:13px;color:#9A9AA4;font-weight:600;margin-top:2px;">COP · Peso colombiano</div>
+    </div>
+    <!-- chips -->
+    <div style="display:flex;gap:10px;padding:6px 20px 0;">
+      <button onClick="{{ openCats }}" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid {{ catBorder }};border-radius:16px;padding:12px 13px;cursor:pointer;font-family:inherit;text-align:left;">
+        <span style="flex:none;width:38px;height:38px;border-radius:11px;background:{{ ceBg }};display:flex;align-items:center;justify-content:center;">{{ ceIconEl }}</span>
+        <span style="flex:1;min-width:0;"><span style="font-size:11px;color:#9A9AA4;font-weight:600;">Categoría</span><b style="display:block;font-size:14.5px;font-weight:700;color:#16161C;">{{ ceCatName }}</b></span>
+        {{ icChevSm }}
+      </button>
+      <button onClick="{{ noop }}" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid #fff;border-radius:16px;padding:12px 13px;cursor:pointer;font-family:inherit;text-align:left;">
+        <span style="flex:none;width:38px;height:38px;border-radius:11px;background:#DCF5E9;display:flex;align-items:center;justify-content:center;">{{ icWalletSm }}</span>
+        <span style="flex:1;min-width:0;"><span style="font-size:11px;color:#9A9AA4;font-weight:600;">Cuenta</span><b style="display:block;font-size:14.5px;font-weight:700;color:#16161C;">Efectivo</b></span>
+        {{ icChevSm }}
+      </button>
+    </div>
+    <!-- AI confidence line -->
+    <div style="display:flex;align-items:center;gap:8px;padding:11px 22px 0;">
+      <span style="display:flex;align-items:center;gap:6px;background:{{ confBg }};border-radius:30px;padding:5px 11px;">{{ confIcon }}<b style="font-size:11.5px;font-weight:700;color:{{ confColor }};">{{ confLabel }}</b></span>
+      <span style="font-size:11.5px;color:#9A9AA4;font-weight:500;">Sugerido por IA · aprende de ti</span>
+    </div>
+
+    <!-- mode tabs -->
+    <div style="display:flex;gap:8px;padding:14px 20px 0;">
+      <sc-for list="{{ modeTabs }}" as="m" hint-placeholder-count="3">
+        <button onClick="{{ m.onPress }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 0;border:none;border-radius:13px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;background:{{ m.bg }};color:{{ m.color }};">{{ m.iconEl }}{{ m.label }}</button>
+      </sc-for>
+    </div>
+
+    <!-- input area -->
+    <div style="flex:1;padding:14px 20px 22px;display:flex;flex-direction:column;">
+      <!-- keypad -->
+      <sc-if value="{{ modeKeypad }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#EDE7FE;border-radius:14px;padding:10px 13px;margin-bottom:12px;display:flex;align-items:center;gap:9px;">{{ icSparkV }}<span style="font-size:12.5px;color:#6B4FD8;font-weight:600;">Categoría y cuenta listas — escribe el monto y guarda.</span></div>
+        <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:9px;">
+          <sc-for list="{{ keypad }}" as="k" hint-placeholder-count="12">
+            <button onClick="{{ k.onPress }}" style="background:#fff;border:none;border-radius:16px;font-family:inherit;font-size:23px;font-weight:700;color:#16161C;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 9px rgba(28,20,60,.05);">{{ k.node }}</button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <!-- natural language -->
+      <sc-if value="{{ modeText }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border-radius:16px;padding:4px 6px 4px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 3px 12px rgba(28,20,60,.05);">
+          {{ icTypeG }}
+          <input value="{{ nlText }}" onChange="{{ setNl }}" placeholder="Ej: café 8 mil en Juan Valdez" style="flex:1;border:none;outline:none;font-family:inherit;font-size:15.5px;font-weight:600;color:#16161C;padding:14px 0;background:none;" />
+          <button onClick="{{ noop }}" style="width:42px;height:42px;border-radius:13px;background:#EDE7FE;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;">{{ icMic }}</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+          <sc-for list="{{ nlExamples }}" as="ex" hint-placeholder-count="3">
+            <button onClick="{{ ex.onPress }}" style="background:#E7E6EC;border:none;border-radius:30px;padding:8px 13px;font-family:inherit;font-size:12.5px;font-weight:600;color:#56565f;cursor:pointer;">{{ ex.label }}</button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ nlReady }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px;background:#fff;border-radius:18px;padding:16px;box-shadow:0 5px 16px rgba(28,20,60,.05);animation:pop .25s ease;">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:13px;">{{ icSparkV }}<b style="font-size:13px;font-weight:700;color:#6B4FD8;">Bolsillo entendió</b></div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="width:46px;height:46px;border-radius:13px;background:{{ ceBg }};display:flex;align-items:center;justify-content:center;">{{ ceIconEl }}</span>
+              <span style="flex:1;"><b style="display:block;font-size:18px;font-weight:800;color:#16161C;font-variant-numeric:tabular-nums;">{{ nlAmountStr }}</b><span style="font-size:13px;color:#9A9AA4;font-weight:600;">{{ ceCatName }} · Efectivo</span></span>
+              <span style="display:flex;align-items:center;gap:5px;background:{{ confBg }};border-radius:30px;padding:5px 10px;">{{ confIcon }}<b style="font-size:11px;font-weight:700;color:{{ confColor }};">{{ confLabel }}</b></span>
+            </div>
+          </div>
+        </sc-if>
+      </sc-if>
+      <!-- receipt -->
+      <sc-if value="{{ modeReceipt }}" hint-placeholder-val="{{ false }}">
+        <sc-if value="{{ noReceipt }}" hint-placeholder-val="{{ true }}">
+          <div style="flex:1;border-radius:20px;background:#16161B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;position:relative;overflow:hidden;min-height:230px;">
+            <div style="position:absolute;inset:24px;border-radius:18px;border:2px dashed rgba(255,255,255,.25);"></div>
+            <div style="width:64px;height:64px;border-radius:18px;background:rgba(124,92,240,.25);display:flex;align-items:center;justify-content:center;">{{ icCamBig }}</div>
+            <div style="text-align:center;"><b style="display:block;color:#fff;font-size:15px;font-weight:700;">Apunta a tu recibo</b><span style="color:rgba(255,255,255,.6);font-size:12.5px;font-weight:500;">Lee monto, fecha y comercio · sin conexión</span></div>
+            <button onClick="{{ captureReceipt }}" style="background:#7C5CF0;border:none;border-radius:30px;padding:12px 24px;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;">Tomar foto</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ hasReceipt }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 5px 16px rgba(28,20,60,.05);animation:pop .25s ease;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;"><span style="width:26px;height:26px;border-radius:8px;background:#DCF5E9;display:flex;align-items:center;justify-content:center;">{{ icCheckG }}</span><b style="font-size:13.5px;font-weight:700;color:#16B364;">Recibo leído sin conexión</b></div>
+            <sc-for list="{{ receiptFields }}" as="f" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F2F1F5;"><span style="font-size:13.5px;color:#9A9AA4;font-weight:600;">{{ f.label }}</span><b style="font-size:14.5px;font-weight:700;color:#16161C;">{{ f.value }}</b></div>
+            </sc-for>
+            <div style="display:flex;align-items:center;gap:11px;margin-top:14px;background:#F7F6FA;border-radius:14px;padding:12px;">
+              <span style="width:40px;height:40px;border-radius:12px;background:{{ ceBg }};display:flex;align-items:center;justify-content:center;">{{ ceIconEl }}</span>
+              <span style="flex:1;"><span style="font-size:11px;color:#9A9AA4;font-weight:600;">Categoría propuesta</span><b style="display:block;font-size:14.5px;font-weight:700;color:#16161C;">{{ ceCatName }}</b></span>
+              <span style="display:flex;align-items:center;gap:5px;background:{{ confBg }};border-radius:30px;padding:5px 10px;">{{ confIcon }}<b style="font-size:11px;font-weight:700;color:{{ confColor }};">{{ confLabel }}</b></span>
+            </div>
+          </div>
+        </sc-if>
+      </sc-if>
+    </div>
+
+    <!-- save -->
+    <div style="padding:0 20px 26px;">
+      <button onClick="{{ save }}" style="width:100%;padding:17px;border:none;border-radius:18px;background:{{ saveBg }};color:#fff;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(124,92,240,.35);display:flex;align-items:center;justify-content:center;gap:9px;">{{ saveLabel }}{{ icArrowW }}</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== CATEGORY PICKER ===================== -->
+  <sc-if value="{{ catsOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeCats }}" style="position:absolute;inset:0;z-index:70;background:rgba(20,14,40,.42);animation:fade .2s ease;"></div>
+  <div class="scrl" style="position:absolute;left:0;right:0;bottom:0;z-index:71;height:660px;background:#F4F3F6;border-radius:30px 30px 0 0;animation:sheetUp .32s cubic-bezier(.22,1,.36,1);overflow-y:auto;">
+    <div style="position:sticky;top:0;background:#F4F3F6;padding:14px 20px 10px;z-index:2;">
+      <div style="display:flex;justify-content:center;margin-bottom:8px;"><span style="width:42px;height:5px;border-radius:10px;background:#D6D5DC;"></span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:18px;font-weight:800;color:#16161C;">Elegir categoría</span><button onClick="{{ closeCats }}" style="width:36px;height:36px;border-radius:50%;background:#E7E6EC;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;">{{ icX }}</button></div>
+    </div>
+    <div style="padding:4px 20px 30px;">
+      <div style="background:linear-gradient(160deg,#F0EBFE,#FBFAFF);border:1.5px solid #E4D9FB;border-radius:20px;padding:16px;margin-bottom:18px;">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:13px;">{{ icSparkV }}<b style="font-size:13px;font-weight:700;color:#6B4FD8;">Sugerencia de IA</b><span style="font-size:11.5px;color:#9A8CC9;font-weight:500;">según el comercio y tu historial</span></div>
+        <sc-for list="{{ alternatives }}" as="a" hint-placeholder-count="3">
+          <button onClick="{{ a.onPress }}" style="width:100%;display:flex;align-items:center;gap:12px;background:{{ a.cardBg }};border:1.5px solid {{ a.cardBorder }};border-radius:15px;padding:12px;margin-bottom:9px;cursor:pointer;font-family:inherit;text-align:left;">
+            <span style="flex:none;width:40px;height:40px;border-radius:12px;background:{{ a.bg }};display:flex;align-items:center;justify-content:center;">{{ a.iconEl }}</span>
+            <span style="flex:1;"><b style="font-size:14.5px;font-weight:700;color:#16161C;">{{ a.name }}</b>
+              <span style="display:flex;align-items:center;gap:8px;margin-top:5px;"><span style="flex:1;height:6px;border-radius:6px;background:#EAE6F5;overflow:hidden;"><span style="display:block;height:100%;width:{{ a.barW }};border-radius:6px;background:{{ a.barColor }};"></span></span><span style="font-size:11.5px;font-weight:700;color:{{ a.barColor }};">{{ a.confStr }}</span></span>
+            </span>
+            {{ a.checkEl }}
+          </button>
+        </sc-for>
+      </div>
+      <div style="font-size:12.5px;font-weight:700;color:#9A9AA4;text-transform:uppercase;letter-spacing:.5px;margin:0 2px 12px;">Todas las categorías</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:11px 8px;">
+        <sc-for list="{{ allCats }}" as="c" hint-placeholder-count="12">
+          <button onClick="{{ c.onPress }}" style="display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;cursor:pointer;font-family:inherit;">
+            <span style="width:54px;height:54px;border-radius:17px;background:{{ c.bg }};display:flex;align-items:center;justify-content:center;border:2px solid {{ c.sel }};">{{ c.iconEl }}</span>
+            <span style="font-size:11px;font-weight:600;color:#56565f;text-align:center;line-height:1.2;">{{ c.name }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- LEARNING NOTE -->
+  <sc-if value="{{ learned }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;transform:translateX(-50%);bottom:120px;z-index:90;display:flex;align-items:center;gap:9px;background:#16161B;border-radius:30px;padding:11px 18px;box-shadow:0 12px 30px rgba(0,0,0,.3);animation:toastUp .3s ease;">{{ icSparkV }}<span style="color:#fff;font-size:13px;font-weight:600;">Aprenderé de tu elección</span></div>
+  </sc-if>
+
+  <!-- UNDO TOAST -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;transform:translateX(-50%);bottom:120px;z-index:90;display:flex;align-items:center;gap:14px;background:#16161B;border-radius:30px;padding:12px 14px 12px 18px;box-shadow:0 12px 30px rgba(0,0,0,.3);animation:toastUp .3s ease;white-space:nowrap;">
+      <span style="width:30px;height:30px;border-radius:50%;background:#16B364;display:flex;align-items:center;justify-content:center;">{{ icCheckWsm }}</span>
+      <span style="color:#fff;font-size:13.5px;font-weight:600;">{{ toastText }}</span>
+      <button onClick="{{ undo }}" style="background:rgba(255,255,255,.14);border:none;border-radius:30px;padding:8px 14px;color:#B79CFF;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">Deshacer</button>
+    </div>
+  </sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:462,&quot;height&quot;:932}}">
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    sheetOpen: false,
+    recMode: 'keypad',
+    txType: 'gasto',
+    amount: 0,
+    nlText: '',
+    category: null,
+    receipt: null,
+    catsOpen: false,
+    learned: false,
+    toast: null,
+    nextId: 100,
+    lastAddedId: null,
+    txns: [
+      { id: 1, day: 'lunes, 12 de enero de 2026', catId: 'cafe', title: 'Café', merchant: 'Juan Valdez', amount: -12490, accId: 'efectivo', tag: 'Trabajo', status: 'ok' },
+      { id: 2, day: 'lunes, 12 de enero de 2026', catId: 'transporte', title: 'Transporte', merchant: 'Uber', amount: -23900, accId: 'nequi', status: 'ok' },
+      { id: 3, day: 'lunes, 12 de enero de 2026', catId: 'restaurantes', title: 'Restaurantes', merchant: 'Crepes & Waffles', amount: -68500, accId: 'visa', status: 'confirm' },
+      { id: 4, day: 'domingo, 11 de enero de 2026', catId: 'mercado', title: 'Mercado', merchant: 'Carulla', amount: -184300, accId: 'banco', status: 'ok' },
+      { id: 5, day: 'viernes, 9 de enero de 2026', catId: 'ingreso', title: 'Nómina', merchant: 'Empresa S.A.S', amount: 3200000, accId: 'banco', status: 'ok', income: true },
+    ],
+  };
+
+  // ---------- helpers ----------
+  fmtPlain(n) {
+    const s = Math.round(Math.abs(n)).toString();
+    let out = '';
+    for (let i = 0; i < s.length; i++) {
+      if (i > 0 && (s.length - i) % 3 === 0) out += '.';
+      out += s[i];
+    }
+    return out;
+  }
+  fmt(n) { return (n < 0 ? '-$' : '$') + this.fmtPlain(n); }
+
+  cats() {
+    if (this._cats) return this._cats;
+    const C = (id, name, icon, bg, fg) => ({ id, name, icon, bg, fg });
+    const list = [
+      C('cafe', 'Café', 'coffee', '#FBEFD6', '#E0A12B'),
+      C('mercado', 'Mercado', 'cart', '#DCF5E9', '#16B364'),
+      C('restaurantes', 'Restaurantes', 'utensils', '#FCEBDD', '#F2843B'),
+      C('transporte', 'Transporte', 'car', '#E3EFFE', '#3B82F6'),
+      C('ropa', 'Ropa', 'bag', '#EDE7FE', '#7C5CF0'),
+      C('entretenimiento', 'Ocio', 'tv', '#DEF1FB', '#2BA4D9'),
+      C('salud', 'Salud', 'heart', '#FDE6EC', '#F0425A'),
+      C('vivienda', 'Vivienda', 'home', '#DAF3F0', '#12A89A'),
+      C('servicios', 'Servicios', 'zap', '#EDE7FE', '#7C5CF0'),
+      C('educacion', 'Educación', 'cap', '#E3EFFE', '#3B82F6'),
+      C('vacaciones', 'Viajes', 'umbrella', '#DEF1FB', '#2BA4D9'),
+      C('otros', 'Otros', 'tag', '#ECECEF', '#75757F'),
+      C('ingreso', 'Ingreso', 'banknote', '#DCF5E9', '#16B364'),
+    ];
+    this._cats = {};
+    list.forEach(c => this._cats[c.id] = c);
+    this._catList = list.filter(c => c.id !== 'ingreso');
+    return this._cats;
+  }
+  catById(id) { return this.cats()[id] || this.cats()['otros']; }
+  accById(id) {
+    const A = { efectivo: 'Efectivo', nequi: 'Nequi', banco: 'Bancolombia', visa: 'Visa Crédito' };
+    return A[id] || 'Efectivo';
+  }
+
+  parseNl(t) {
+    t = (t || '').toLowerCase();
+    let amount = 0;
+    const m = t.match(/(\d+(?:[.,]\d+)?)\s*(millones|millón|millon|mill|lucas|luca|mil|k|m)?/);
+    if (m) {
+      let n = parseFloat(m[1].replace('.', '').replace(',', '.'));
+      const u = m[2] || '';
+      if (/^(mil|lucas|luca|k)$/.test(u)) n *= 1000;
+      else if (/^(mill|millon|millón|millones|m)$/.test(u)) n *= 1000000;
+      else if (n > 0 && n < 1000 && /\b(mil|lucas|luca|k)\b/.test(t)) n *= 1000;
+      amount = Math.round(n);
+    }
+    const map = [
+      [/(caf[eé]|tinto|capuchino|latte|valdez)/, 'cafe'],
+      [/(mercado|super|éxito|exito|carulla|d1|ara|jumbo|olímpica)/, 'mercado'],
+      [/(uber|taxi|bus|transmilenio|gasolina|peaje|didi|cabify|transporte|parqueadero)/, 'transporte'],
+      [/(almuerzo|comida|cena|restaurante|crepes|domicilio|rappi|pizza|hamburguesa)/, 'restaurantes'],
+      [/(ropa|zapatos|tenis|camisa|jean|vestido)/, 'ropa'],
+      [/(cine|netflix|spotify|juego|concierto|bar|cerveza)/, 'entretenimiento'],
+      [/(farmacia|droga|m[eé]dico|salud|eps|gym|gimnasio)/, 'salud'],
+      [/(arriendo|renta|luz|agua|internet|celular|servicios)/, 'vivienda'],
+    ];
+    let catId = null;
+    for (const [re, id] of map) { if (re.test(t)) { catId = id; break; } }
+    const cat = catId ? this.catById(catId) : this.catById('otros');
+    const conf = catId ? 0.93 : (amount > 0 ? 0.45 : 0);
+    return { amount, cat, conf };
+  }
+
+  defaultCat() { return this.catById('cafe'); }
+
+  currentEntry() {
+    const s = this.state;
+    let amount = 0, cat = this.defaultCat(), conf = 0.92, src = 'manual';
+    if (s.recMode === 'keypad') { amount = s.amount; cat = this.defaultCat(); conf = 0.92; }
+    else if (s.recMode === 'text') { const p = this.parseNl(s.nlText); amount = p.amount; cat = p.cat; conf = p.conf; src = 'natural'; }
+    else if (s.recMode === 'receipt') { if (s.receipt) { amount = s.receipt.amount; cat = s.receipt.cat; conf = s.receipt.conf; src = 'receipt'; } else { amount = 0; conf = 0; } }
+    if (s.category) { cat = s.category; conf = 0.99; }
+    return { amount, cat, conf, src, accId: 'efectivo' };
+  }
+
+  alternativesFor(cat) {
+    const sib = { cafe: 'restaurantes', restaurantes: 'cafe', mercado: 'restaurantes', transporte: 'servicios', ropa: 'entretenimiento', entretenimiento: 'ropa', salud: 'servicios', vivienda: 'servicios', servicios: 'vivienda', educacion: 'entretenimiento', vacaciones: 'transporte', otros: 'mercado' }[cat.id] || 'mercado';
+    const third = { cafe: 'mercado', mercado: 'otros', transporte: 'otros', restaurantes: 'mercado', ropa: 'otros' }[cat.id] || 'otros';
+    return [
+      { cat, conf: 0.92 },
+      { cat: this.catById(sib), conf: 0.34 },
+      { cat: this.catById(third), conf: 0.12 },
+    ];
+  }
+
+  // ---------- icons ----------
+  icSpec() {
+    if (this._I) return this._I;
+    const p = d => ['path', { d }];
+    const c = (cx, cy, r, fill) => ['circle', fill ? { cx, cy, r, fill } : { cx, cy, r }];
+    const rc = (x, y, w, h, rx) => ['rect', { x, y, width: w, height: h, rx }];
+    const ln = (x1, y1, x2, y2) => ['line', { x1, y1, x2, y2 }];
+    const pl = pts => ['polyline', { points: pts }];
+    const pg = pts => ['polygon', { points: pts }];
+    this._I = {
+      coffee: [p('M17 8h1a4 4 0 1 1 0 8h-1'), p('M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z'), ln(6, 2, 6, 4), ln(10, 2, 10, 4), ln(14, 2, 14, 4)],
+      cart: [c(8, 21, 1), c(19, 21, 1), p('M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12')],
+      utensils: [p('M3 2v7c0 1.1.9 2 2 2a2 2 0 0 0 2-2V2'), ln(7, 2, 7, 22), p('M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7')],
+      car: [p('M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2'), c(7, 17, 2), p('M9 17h6'), c(17, 17, 2)],
+      bag: [p('M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z'), p('M3 6h18'), p('M16 10a4 4 0 0 1-8 0')],
+      tv: [rc(2, 7, 20, 15, 2), pl('17 2 12 7 7 2')],
+      heart: [p('M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z')],
+      home: [p('m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'), pl('9 22 9 12 15 12 15 22')],
+      zap: [pg('13 2 3 14 12 14 11 22 21 10 12 10 13 2')],
+      cap: [p('M22 10v6M2 10l10-5 10 5-10 5z'), p('M6 12v5c3 3 9 3 12 0v-5')],
+      umbrella: [p('M22 12a10.06 10.06 0 0 0-20 0Z'), p('M12 12v8a2 2 0 0 0 4 0'), p('M12 2v1')],
+      tag: [p('M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z'), c(7.5, 7.5, 0.5, 'currentColor')],
+      banknote: [rc(2, 6, 20, 12, 2), c(12, 12, 2), p('M6 12h.01M18 12h.01')],
+      wallet: [p('M21 12V7H5a2 2 0 0 1 0-4h14v4'), p('M3 5v14a2 2 0 0 0 2 2h16v-5'), p('M18 12a2 2 0 0 0 0 4h4v-4Z')],
+      card: [rc(2, 5, 20, 14, 2), ln(2, 10, 22, 10)],
+      bell: [p('M10.3 21a1.94 1.94 0 0 0 3.4 0'), p('M21 19H3l1.6-2A3 3 0 0 0 5 15.2V10a7 7 0 0 1 14 0v5.2c0 .7.2 1.4.6 2z')],
+      settings: [c(12, 12, 3), p('M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z')],
+      plus: [p('M5 12h14M12 5v14')],
+      spark: [p('M9.94 4.66a1 1 0 0 1 1.9 0l1.07 3.2a2 2 0 0 0 1.26 1.27l3.2 1.06a1 1 0 0 1 0 1.9l-3.2 1.07a2 2 0 0 0-1.26 1.26l-1.07 3.2a1 1 0 0 1-1.9 0l-1.06-3.2a2 2 0 0 0-1.27-1.26l-3.2-1.07a1 1 0 0 1 0-1.9l3.2-1.06A2 2 0 0 0 8.88 7.86Z')],
+      camera: [p('M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'), c(12, 13, 3)],
+      type: [pl('4 7 4 4 20 4 20 7'), ln(9, 20, 15, 20), ln(12, 4, 12, 20)],
+      mic: [p('M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z'), p('M19 10v2a7 7 0 0 1-14 0v-2'), ln(12, 19, 12, 22)],
+      back: [p('m12 19-7-7 7-7'), p('M19 12H5')],
+      chevd: [p('m6 9 6 6 6-6')],
+      chevr: [p('m9 18 6-6-6-6')],
+      check: [p('M20 6 9 17l-5-5')],
+      x: [p('M18 6 6 18M6 6l12 12')],
+      bars: [ln(12, 20, 12, 10), ln(18, 20, 18, 4), ln(6, 20, 6, 14)],
+      pie: [p('M21.2 15.9A10 10 0 1 1 8 2.8'), p('M22 12A10 10 0 0 0 12 2v10z')],
+      target: [c(12, 12, 10), c(12, 12, 6), c(12, 12, 2)],
+      dots: [c(12, 12, 1), c(12, 5, 1), c(12, 19, 1)],
+      search: [c(11, 11, 8), p('m21 21-4.3-4.3')],
+      lock: [rc(3, 11, 18, 11, 2), p('M7 11V7a5 5 0 0 1 10 0v4')],
+      layers: [p('m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z'), p('m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65'), p('m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65')],
+      info: [c(12, 12, 10), p('M12 16v-4M12 8h.01')],
+      share: [p('M7 7h10v10'), p('M7 17 17 7')],
+      arrow: [p('M5 12h14'), p('m12 5 7 7-7 7')],
+      repeat: [p('m17 2 4 4-4 4'), p('M3 11v-1a4 4 0 0 1 4-4h14'), p('m7 22-4-4 4-4'), p('M21 13v1a4 4 0 0 1-4 4H3')],
+      download: [p('M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'), pl('7 10 12 15 17 10'), ln(12, 15, 12, 3)],
+      shield: [p('M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z')],
+    };
+    return this._I;
+  }
+  ic(name, size, color, sw) {
+    const spec = this.icSpec()[name] || [];
+    const kids = spec.map((e, i) => React.createElement(e[0], Object.assign({ key: i }, e[1])));
+    return React.createElement('svg', { width: size || 22, height: size || 22, viewBox: '0 0 24 24', fill: 'none', stroke: color || 'currentColor', strokeWidth: sw || 2, strokeLinecap: 'round', strokeLinejoin: 'round' }, kids);
+  }
+  statusIcons(color) {
+    const bar = (h, op) => React.createElement('span', { key: 'b' + h, style: { display: 'inline-block', width: '3px', height: h + 'px', borderRadius: '2px', background: color, opacity: op } });
+    const signal = React.createElement('span', { style: { display: 'flex', alignItems: 'flex-end', gap: '2px' } }, [bar(5, 1), bar(7, 1), bar(9, 1), bar(11, .4)]);
+    const wifi = this.ic('wifi', 17, color, 2) ;
+    const wifiEl = React.createElement('svg', { width: 17, height: 14, viewBox: '0 0 24 20', fill: 'none' }, [
+      React.createElement('path', { key: 1, d: 'M12 18.5 12 18.5', stroke: color, strokeWidth: 3, strokeLinecap: 'round' }),
+      React.createElement('path', { key: 2, d: 'M5 11a10 10 0 0 1 14 0', stroke: color, strokeWidth: 2.4, strokeLinecap: 'round' }),
+      React.createElement('path', { key: 3, d: 'M1.5 7a15 15 0 0 1 21 0', stroke: color, strokeWidth: 2.4, strokeLinecap: 'round' }),
+      React.createElement('path', { key: 4, d: 'M8.5 14.5a5 5 0 0 1 7 0', stroke: color, strokeWidth: 2.4, strokeLinecap: 'round' }),
+    ]);
+    const batt = React.createElement('span', { style: { display: 'flex', alignItems: 'center', gap: '2px' } }, [
+      React.createElement('span', { key: 1, style: { width: '22px', height: '12px', borderRadius: '3px', border: '1.5px solid ' + color, padding: '1.5px', display: 'flex' } }, React.createElement('span', { style: { flex: 1, background: color, borderRadius: '1px' } })),
+      React.createElement('span', { key: 2, style: { width: '2px', height: '4px', background: color, borderRadius: '1px' } }),
+    ]);
+    return React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '7px' } }, [signal, wifiEl, batt]);
+  }
+
+  // ---------- handlers ----------
+  go = (s) => { this.setState({ screen: typeof s === 'string' ? s : 'home' }); };
+  goHome = () => this.setState({ screen: 'home' });
+  noop = () => {};
+  openSheet = () => this.setState({ sheetOpen: true, recMode: 'keypad', txType: 'gasto', amount: 0, nlText: '', category: null, receipt: null });
+  closeSheet = () => this.setState({ sheetOpen: false, catsOpen: false });
+  setMode = (m) => this.setState({ recMode: m, category: null });
+  setType = (t) => this.setState({ txType: t });
+  press = (k) => {
+    this.setState(s => {
+      let a = s.amount;
+      if (k === 'back') a = Math.floor(a / 10);
+      else if (k === '000') a = a * 1000;
+      else a = a * 10 + parseInt(k, 10);
+      if (a > 999999999) a = s.amount;
+      return { amount: a };
+    });
+  };
+  setNl = (e) => this.setState({ nlText: e.target.value, category: null });
+  setExample = (t) => this.setState({ nlText: t, category: null });
+  openCats = () => this.setState({ catsOpen: true });
+  closeCats = () => this.setState({ catsOpen: false });
+  pickCat = (cat) => {
+    this.setState({ category: cat, catsOpen: false, learned: true });
+    clearTimeout(this._lt);
+    this._lt = setTimeout(() => this.setState({ learned: false }), 2400);
+  };
+  captureReceipt = () => this.setState({ receipt: { amount: 86500, merchant: 'Carulla', date: 'Hoy · 12 ene 2026', cat: this.catById('mercado'), conf: 0.9 } });
+  save = () => {
+    const ce = this.currentEntry();
+    if (!ce.amount || ce.amount <= 0) return;
+    const income = this.state.txType === 'ingreso';
+    const id = this.state.nextId;
+    const tx = {
+      id, day: 'lunes, 12 de enero de 2026', catId: ce.cat.id,
+      title: ce.cat.name, merchant: ce.src === 'natural' ? 'Lenguaje natural' : (ce.src === 'receipt' ? this.state.receipt.merchant : 'Manual'),
+      amount: income ? ce.amount : -ce.amount, accId: ce.accId,
+      status: ce.conf >= 0.7 ? 'ok' : 'confirm', income,
+    };
+    this.setState(s => ({
+      txns: [tx, ...s.txns], nextId: s.nextId + 1, sheetOpen: false, catsOpen: false,
+      amount: 0, nlText: '', category: null, receipt: null, lastAddedId: id,
+      toast: { text: (income ? 'Ingreso' : 'Gasto') + ' guardado · ' + ce.cat.name + ' ' + this.fmt(ce.amount) },
+    }));
+    clearTimeout(this._tt);
+    this._tt = setTimeout(() => this.setState({ toast: null }), 4500);
+  };
+  undo = () => {
+    this.setState(s => ({ txns: s.txns.filter(t => t.id !== s.lastAddedId), toast: null }));
+  };
+
+  // ---------- render ----------
+  renderVals() {
+    const s = this.state;
+    const ce = this.currentEntry();
+    const VIO = '#7C5CF0';
+
+    // status bar
+    const sbColor = s.screen === 'home' ? '#ffffff' : '#16161C';
+
+    // nav
+    const navDef = [
+      { id: 'home', label: 'Inicio', icon: 'home' },
+      { id: 'report', label: 'Reporte', icon: 'bars', gap: true },
+      { id: 'plan', label: 'Plan', icon: 'layers' },
+      { id: 'settings', label: 'Ajustes', icon: 'settings' },
+    ];
+    const navItems = navDef.map(n => {
+      const active = s.screen === n.id;
+      return {
+        label: n.label, gap: !!n.gap,
+        iconEl: this.ic(n.icon, 23, active ? VIO : '#A9A9B2', active ? 2.3 : 2),
+        color: active ? '#16161C' : '#A9A9B2', weight: active ? '700' : '500',
+        onPress: () => this.setState({ screen: n.id }),
+      };
+    });
+
+    // feed (home)
+    const feed = [];
+    let lastDay = null;
+    s.txns.forEach(t => {
+      if (t.day !== lastDay) {
+        lastDay = t.day;
+        const dayTxns = s.txns.filter(x => x.day === t.day);
+        const total = dayTxns.reduce((a, x) => a + Math.abs(x.amount), 0);
+        feed.push({ isDay: true, isTx: false, day: t.day, totalStr: '$' + this.fmtPlain(total) });
+      }
+      const cat = this.catById(t.catId);
+      feed.push({
+        isDay: false, isTx: true,
+        title: t.title, merchant: t.merchant,
+        bg: t.income ? '#DCF5E9' : cat.bg,
+        iconEl: this.ic(t.income ? 'banknote' : cat.icon, 21, t.income ? '#16B364' : cat.fg, 2),
+        amountStr: (t.amount < 0 ? '-' : '+') + '$' + this.fmtPlain(t.amount),
+        amtColor: t.amount < 0 ? '#F0425A' : '#16B364',
+        accName: this.accById(t.accId),
+        confirm: t.status === 'confirm',
+        subEl: t.tag ? this.ic('tag', 12, '#B0B0B8', 2.2) : this.ic('repeat', 12, '#C8C8CF', 2),
+        onPress: this.noop,
+      });
+    });
+
+    // report breakdown
+    const bdDef = [
+      { id: 'mercado', name: 'Mercado', amount: 572190, pct: '31%', delta: '+12%', up: true, bar: '88%', fg: VIO, bg: '#EDE7FE' },
+      { id: 'transporte', name: 'Transporte', amount: 458200, pct: '24.8%', delta: '+6%', up: true, bar: '70%', fg: '#3B82F6', bg: '#E3EFFE' },
+      { id: 'restaurantes', name: 'Restaurantes', amount: 369100, pct: '20%', delta: '-3%', up: false, bar: '57%', fg: '#16B364', bg: '#DCF5E9' },
+      { id: 'cafe', name: 'Café', amount: 350490, pct: '19%', delta: '+9%', up: true, bar: '54%', fg: '#F2843B', bg: '#FCEBDD' },
+    ];
+    const breakdown = bdDef.map(b => ({
+      name: b.name, amountStr: '$' + this.fmtPlain(b.amount), pct: b.pct, delta: b.delta,
+      deltaColor: b.up ? '#16B364' : '#F0425A', deltaBg: b.up ? '#DCF5E9' : '#FDE6EC',
+      barW: b.bar, fg: b.fg, bg: b.bg, iconEl: this.ic(this.catById(b.id).icon, 21, b.fg, 2),
+    }));
+
+    // budgets (plan)
+    const budDef = [
+      { id: 'mercado', name: 'Mercado', spent: 420000, cap: 600000 },
+      { id: 'transporte', name: 'Transporte', spent: 185000, cap: 200000 },
+      { id: 'restaurantes', name: 'Restaurantes', spent: 312000, cap: 300000 },
+      { id: 'entretenimiento', name: 'Ocio', spent: 90000, cap: 250000 },
+    ];
+    const budgets = budDef.map(b => {
+      const cat = this.catById(b.id);
+      const pct = Math.round(b.spent / b.cap * 100);
+      const col = pct > 100 ? '#F0425A' : (pct >= 80 ? '#F2843B' : '#16B364');
+      return {
+        name: b.name, bg: cat.bg, iconEl: this.ic(cat.icon, 21, cat.fg, 2),
+        spentStr: '$' + this.fmtPlain(b.spent), capStr: '$' + this.fmtPlain(b.cap),
+        pct: pct + '%', ringColor: col,
+        ring: 'conic-gradient(' + col + ' 0 ' + Math.min(pct, 100) + '%, #ECECEF ' + Math.min(pct, 100) + '% 100%)',
+      };
+    });
+
+    // settings
+    const sg = (label, icon, bg, value) => ({ label, value: value || '', bg, iconEl: this.ic(icon, 18, '#56565f', 2) });
+    const settingGroups = [
+      { title: 'Cuenta y dinero', rows: [sg('Moneda base', 'banknote', '#DCF5E9', 'COP'), sg('Cuentas y tarjetas', 'card', '#E3EFFE', '4'), sg('Categorías y reglas', 'tag', '#EDE7FE')] },
+      { title: 'Automatización', rows: [sg('Recurrentes y suscripciones', 'repeat', '#FCEBDD', '5'), sg('Presupuestos', 'target', '#FBEFD6')] },
+      { title: 'Privacidad y datos', rows: [sg('Bloqueo y biometría', 'shield', '#FDE6EC'), sg('Copia de seguridad', 'lock', '#DAF3F0', 'Cifrada'), sg('Exportar / importar CSV', 'download', '#ECECEF')] },
+    ];
+
+    // sheet — type tabs
+    const tDef = [{ id: 'gasto', label: 'Gasto' }, { id: 'ingreso', label: 'Ingreso' }, { id: 'transferencia', label: 'Transferencia' }];
+    const typeTabs = tDef.map(t => {
+      const on = s.txType === t.id;
+      return { label: t.label, onPress: () => this.setType(t.id), bg: on ? '#fff' : 'transparent', color: on ? '#16161C' : '#9A9AA4', shadow: on ? '0 2px 6px rgba(28,20,60,.08)' : 'none' };
+    });
+
+    // mode tabs
+    const mDef = [{ id: 'keypad', label: 'Teclado', icon: 'plus' }, { id: 'text', label: 'Texto', icon: 'type' }, { id: 'receipt', label: 'Recibo', icon: 'camera' }];
+    const modeTabs = mDef.map(m => {
+      const on = s.recMode === m.id;
+      return { label: m.label, onPress: () => this.setMode(m.id), bg: on ? VIO : '#E7E6EC', color: on ? '#fff' : '#56565f', iconEl: this.ic(m.icon, 16, on ? '#fff' : '#56565f', 2.2) };
+    });
+
+    // keypad
+    const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '000', '0', 'back'];
+    const keypad = keys.map(k => ({ node: k === 'back' ? this.ic('back', 22, '#16161C', 2.4) : k, onPress: () => this.press(k) }));
+
+    // amount display
+    const dispAmountStr = ce.amount > 0 ? this.fmtPlain(ce.amount) : '0';
+    const typed = ce.amount > 0;
+    const amtColor = s.txType === 'ingreso' ? '#16B364' : (typed ? '#16161C' : '#C4C3CC');
+    const caretColor = typed ? VIO : '#D6D5DC';
+
+    // confidence
+    const low = ce.conf > 0 && ce.conf < 0.7;
+    const confLabel = ce.conf <= 0 ? 'Esperando…' : (low ? 'Por confirmar' : 'IA ' + Math.round(ce.conf * 100) + '%');
+    const confColor = ce.conf <= 0 ? '#9A9AA4' : (low ? '#E0852B' : '#16B364');
+    const confBg = ce.conf <= 0 ? '#ECECEF' : (low ? '#FBEFD6' : '#DCF5E9');
+    const confIcon = low ? this.ic('info', 13, confColor, 2.4) : this.ic(ce.conf <= 0 ? 'spark' : 'check', 13, confColor, 2.6);
+
+    // category picker alternatives
+    const alts = this.alternativesFor(ce.cat);
+    const selId = ce.cat.id;
+    const alternatives = alts.map((a, i) => {
+      const isTop = i === 0;
+      return {
+        name: a.cat.name, bg: a.cat.bg, iconEl: this.ic(a.cat.icon, 19, a.cat.fg, 2),
+        barW: Math.round(a.conf * 100) + '%', barColor: a.cat.fg, confStr: Math.round(a.conf * 100) + '%',
+        cardBg: isTop ? '#fff' : 'rgba(255,255,255,.55)', cardBorder: isTop ? a.cat.fg : 'transparent',
+        checkEl: isTop ? this.ic('check', 18, a.cat.fg, 2.6) : this.ic('chevr', 17, '#C4C3CC', 2.2),
+        onPress: () => this.pickCat(a.cat),
+      };
+    });
+    const allCats = this._catList.map(c => ({
+      name: c.name, bg: c.bg, iconEl: this.ic(c.icon, 23, c.fg, 2),
+      sel: c.id === selId ? c.fg : 'transparent', onPress: () => this.pickCat(c),
+    }));
+
+    // nl
+    const nlReady = s.recMode === 'text' && ce.amount > 0;
+    const nlExamples = ['café 8 mil', 'mercado 120k', 'uber 15.000', 'almuerzo 32 mil'].map(t => ({ label: t, onPress: () => this.setExample(t) }));
+
+    // receipt
+    const receiptFields = s.receipt ? [
+      { label: 'Monto', value: this.fmt(s.receipt.amount) },
+      { label: 'Fecha', value: s.receipt.date },
+      { label: 'Comercio', value: s.receipt.merchant },
+    ] : [];
+
+    const saveLabel = s.txType === 'ingreso' ? 'Guardar ingreso' : (s.txType === 'transferencia' ? 'Guardar transferencia' : 'Guardar gasto');
+    const saveBg = ce.amount > 0 ? 'linear-gradient(135deg,#9B7BF5,#7C5CF0)' : '#C9C4DE';
+
+    return {
+      sbColor, sbIcons: this.statusIcons(sbColor),
+      showHome: s.screen === 'home', showReport: s.screen === 'report', showPlan: s.screen === 'plan', showSettings: s.screen === 'settings',
+      balanceStr: '$' + this.fmtPlain(12480350),
+      navItems, feed, breakdown, budgets, settingGroups,
+      sheetOpen: s.sheetOpen, catsOpen: s.catsOpen, learned: s.learned,
+      go: this.go, goHome: this.goHome, noop: this.noop, openSheet: this.openSheet, closeSheet: this.closeSheet,
+      openCats: this.openCats, closeCats: this.closeCats, save: this.save, undo: this.undo, captureReceipt: this.captureReceipt, setNl: this.setNl,
+      typeTabs, modeTabs, keypad,
+      modeKeypad: s.recMode === 'keypad', modeText: s.recMode === 'text', modeReceipt: s.recMode === 'receipt',
+      noReceipt: !s.receipt, hasReceipt: !!s.receipt, receiptFields,
+      nlText: s.nlText, nlReady, nlExamples, nlAmountStr: this.fmt(ce.amount),
+      dispAmountStr, amtColor, caretColor,
+      ceBg: ce.cat.bg, ceIconEl: this.ic(ce.cat.icon, 19, ce.cat.fg, 2), ceCatName: ce.cat.name,
+      catBorder: low ? '#F0DBB0' : '#fff',
+      confLabel, confColor, confBg, confIcon,
+      alternatives, allCats,
+      saveLabel, saveBg,
+      toast: s.toast, toastText: s.toast ? s.toast.text : '',
+      // static icons
+      icBell: this.ic('bell', 21, '#fff', 2), icChevWhite: this.ic('chevd', 16, '#fff', 2.4),
+      icInfo: this.ic('info', 16, '#B0B0B8', 2), icChevR: this.ic('chevr', 15, '#9A9AA4', 2.4),
+      icIncome: this.ic('banknote', 20, '#16B364', 2), icExpense: this.ic('card', 20, '#F0425A', 2),
+      icSpark: this.ic('spark', 16, '#B79CFF', 2), icChevRv: this.ic('chevr', 14, '#B79CFF', 2.6),
+      icSearch: this.ic('search', 17, '#56565f', 2.2), icChevSm: this.ic('chevd', 14, '#7C5CF0', 2.6),
+      icBack: this.ic('back', 20, '#16161C', 2.2), icBars: this.ic('bars', 17, '#9A9AA4', 2.2), icPieW: this.ic('pie', 16, '#fff', 2.2),
+      icTarget: this.ic('target', 22, '#E0A12B', 2.2), icDots: this.ic('dots', 20, '#B0B0B8', 2.4),
+      icInfoW: this.ic('info', 14, '#fff', 2.6), icPlusW: this.ic('plus', 20, '#fff', 2.4), icShare: this.ic('share', 17, '#16161C', 2.2),
+      icLock: this.ic('chevr', 16, '#C4C3CC', 2.2),
+      icPlusBig: this.ic('plus', 26, '#fff', 2.8),
+      icX: this.ic('x', 18, '#56565f', 2.4), icArrowW: this.ic('arrow', 18, '#fff', 2.4),
+      icWalletSm: this.ic('wallet', 19, '#16B364', 2), icMic: this.ic('mic', 19, '#7C5CF0', 2.2),
+      icTypeG: this.ic('type', 20, '#9A9AA4', 2.2), icSparkV: this.ic('spark', 15, '#7C5CF0', 2),
+      icCamBig: this.ic('camera', 30, '#B79CFF', 2), icCheckG: this.ic('check', 15, '#16B364', 3),
+      icCheckWsm: this.ic('check', 16, '#fff', 3),
+    };
+  }
+}
+</script>
+</body>
+</html>

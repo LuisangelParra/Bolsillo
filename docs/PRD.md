@@ -278,6 +278,7 @@ flowchart TD
 - **Microcopy that teaches** (light education YNAB-style, without imposing a method).
 - **No loading screens** during recording: everything is local and instant.
 - **Localization:** Spanish by default, switchable to English; i18n architecture for more languages; regional number/currency formats.
+- **Shared design system, visual parity:** both native apps share one design system (`shared-assets/design/` + `docs/design/`) and faithfully replicate the canonical design, mapping the same tokens into native theme resources. Visual divergence between platforms is a design-system defect, fixed in the shared design system first, then in both apps.
 
 ---
 
