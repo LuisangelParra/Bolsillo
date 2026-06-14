@@ -44,3 +44,9 @@ Reference bar for spec/plan/task quality: `EXAMPLE_001_fast-expense-recording.md
 ## Build & test
 - Android: `android/CLAUDE.md` (Gradle tasks) — to be created when `android/` is scaffolded.
 - iOS: `ios/CLAUDE.md` (Xcode/SPM commands) — to be created when `ios/` is scaffolded.
+
+<!-- SPECKIT START -->
+## Active feature
+
+- `002-onboarding` — implementation plans: `specs/002-onboarding/plan-android.md`, `specs/002-onboarding/plan-ios.md`.
+<!-- SPECKIT END -->
