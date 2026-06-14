@@ -1,8 +1,5 @@
 import ProjectDescription
 
-// The Xcode project is generated from this manifest (reproducible, committed to git).
-// Local code lives in the `Packages/Bolsillo` Swift package (3 products); external
-// dependencies (GRDB) are resolved through that package.
 let project = Project(
     name: "Bolsillo",
     options: .options(
@@ -27,6 +24,7 @@ let project = Project(
             dependencies: [
                 .package(product: "BolsilloDomain"),
                 .package(product: "BolsilloData"),
+                .package(product: "BolsilloDesignSystem"),
                 .package(product: "FeatureRecord"),
             ]
         ),
@@ -43,13 +41,24 @@ let project = Project(
                 .package(product: "BolsilloData"),
             ]
         ),
+        .target(
+            name: "BolsilloUITests",
+            destinations: .iOS,
+            product: .uiTests,
+            bundleId: "com.bolsillo.app.uitests",
+            deploymentTargets: .iOS("17.0"),
+            sources: ["App/UITests/**"],
+            dependencies: [
+                .target(name: "Bolsillo"),
+            ]
+        ),
     ],
     schemes: [
         .scheme(
             name: "Bolsillo",
             shared: true,
             buildAction: .buildAction(targets: ["Bolsillo"]),
-            testAction: .targets(["BolsilloTests"])
+            testAction: .targets(["BolsilloTests", "BolsilloUITests"])
         ),
     ]
 )

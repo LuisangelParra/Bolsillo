@@ -11,6 +11,12 @@ public protocol TransactionRepository: Sendable {
     func upsert(_ transaction: Transaction) async
     func softDelete(id: String, deletedAt: Date) async
     func restore(id: String) async
+
+    // Extended for feature 001
+    func lastUsed() async -> Transaction?
+    func upsertTransfer(legSource: Transaction, legDest: Transaction) async
+    func softDeleteGroup(transferGroupId: String, deletedAt: Date) async
+    func restoreGroup(transferGroupId: String) async
 }
 
 /// Input features for on-device categorization (Constitution Article V).

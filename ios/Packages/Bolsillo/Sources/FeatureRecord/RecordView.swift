@@ -1,28 +1,18 @@
-import BolsilloDomain
 import SwiftUI
+import BolsilloDesignSystem
 
-/// Placeholder for the fast-expense-recording screen (feature 001).
-/// User-facing strings are injected by the caller (resolved from the app's String Catalog),
-/// so this view holds no hard-coded user text (Constitution Article VII).
+/// Entry point for the fast-expense-recording feature (001).
+/// Wraps `RecordScreen` in the theme provider so callers need only inject a `RecordModel`.
 public struct RecordView: View {
-    private let title: String
-    private let saveTitle: String
+    @State var model: RecordModel
 
-    public init(title: String, saveTitle: String) {
-        self.title = title
-        self.saveTitle = saveTitle
+    public init(model: RecordModel) {
+        self.model = model
     }
 
     public var body: some View {
-        VStack(spacing: 16) {
-            Text(title)
-                .font(.title2)
-            Button(saveTitle) {
-                // TODO: wire to a RecordViewModel backed by a TransactionRepository port.
-            }
-            .buttonStyle(.borderedProminent)
+        BolsilloThemeProvider {
+            RecordScreen(model: model)
         }
-        .padding(24)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

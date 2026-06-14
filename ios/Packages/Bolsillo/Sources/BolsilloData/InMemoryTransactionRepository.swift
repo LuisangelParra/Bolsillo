@@ -30,4 +30,30 @@ public actor InMemoryTransactionRepository: TransactionRepository {
         guard let existing = byId[id] else { return }
         byId[id] = existing.restored()
     }
+
+    // MARK: - Extended for feature 001
+
+    public func lastUsed() async -> Transaction? {
+        byId.values
+            .filter { !$0.isDeleted }
+            .sorted { $0.createdAt > $1.createdAt }
+            .first
+    }
+
+    public func upsertTransfer(legSource: Transaction, legDest: Transaction) async {
+        byId[legSource.id] = legSource
+        byId[legDest.id] = legDest
+    }
+
+    public func softDeleteGroup(transferGroupId: String, deletedAt: Date) async {
+        for (key, tx) in byId where tx.transferGroupId == transferGroupId {
+            byId[key] = tx.markDeleted(at: deletedAt)
+        }
+    }
+
+    public func restoreGroup(transferGroupId: String) async {
+        for (key, tx) in byId where tx.transferGroupId == transferGroupId {
+            byId[key] = tx.restored()
+        }
+    }
 }

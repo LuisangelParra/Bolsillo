@@ -1,17 +1,7 @@
-import FeatureRecord
 import SwiftUI
 
+// Retained as a stub. BolsilloApp no longer uses ContentView —
+// the app shell is wired directly through CompositionRoot → RecordView.
 struct ContentView: View {
-    var body: some View {
-        // Strings resolve from the app's String Catalog (Localizable.xcstrings),
-        // default language Spanish (es), switchable to English (en).
-        RecordView(
-            title: String(localized: "record.title"),
-            saveTitle: String(localized: "record.save")
-        )
-    }
-}
-
-#Preview {
-    ContentView()
+    var body: some View { Color.clear }
 }
